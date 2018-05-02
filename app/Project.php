@@ -21,4 +21,6 @@ class Project extends Model
     protected $dateFormat = 'm-d-Y';*/
 
     protected $table = 'projects';
+
+    protected $table = 'membros_scrum';
 }
