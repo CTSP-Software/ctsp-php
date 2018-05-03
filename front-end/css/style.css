@@ -4,10 +4,21 @@
 
 .vertical-align {
     position: relative;
-    top: 50vh;
+    top: 30vh;
     transform: translateY(-50%);
 }
 
 .cor-texto{
     color: #005cbf;
+}
+
+.pequeno {
+    height: 50%;
+    width: 20%;
+}
+
+.vertical-align-medium {
+    position: relative;
+    top: 15vh;
+    transform: translateY(-50%);
 }

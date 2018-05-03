@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="../css/bootstrap.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="../js/bootstrap.js"></script>
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
+
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+
+<div class="container mt-5">
+    <form action="#localphpondeseraorecolhidososdados" method="post">
+        <div class="form-group row">
+            <label for="inputNameProject" class="col-2 col-form-label">Scrum Project Name or ID: </label>
+            <div class="col-8">
+                <input class="form-control" type="text" name="nomeProjeto" value="Name Project" id="inputNameProject" placeholder="Nome Projeto">
+            </div>
+            <button type="submit" class="btn btn-primary col-2 col-sm-2 pequeno">Search</button>
+        </div>
+    </form>
+
+
+    <p>Project Founds: </p>
+    <div class=" row">
+        <!--Preciso de alguma funcao que busque no BD quantos projetos tal pessoa tem e retorne em formato de lista HTML-->
+        <ul class="list-group col-7">
+            <li class="list-group-item">Projeto 1</li>
+            <li class="list-group-item">Projeto 2</li>
+            <li class="list-group-item">Projeto 3</li>
+            <li class="list-group-item">Projeto 4</li>
+            <li class="list-group-item">Projeto 5</li>
+        </ul>
+        <div class="col-2"></div>
+        <button type="submit" class="btn btn-primary col-1 pequeno vertical-align-medium">Details</button>
+        <div class="col-1"></div>
+        <a class="btn btn-primary col-1 pequeno vertical-align-medium" href="index.html" role="button">Cancel</a>
+
+
+
+    </div>
+</div>
+
+
+</body>
+</html>
