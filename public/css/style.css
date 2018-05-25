@@ -1,0 +1,21 @@
+.size {
+    height: 100vh;
+}
+
+.vertical-align {
+    position: relative;
+    top: 50vh;
+    transform: translateY(-50%);
+}
+
+.cor-texto{
+    color: #005cbf;
+}
+
+#titulowelcomepage{
+    text-align: center;
+}
+
+#back{
+    text-align: center
+}

@@ -1,15 +1,25 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: pedro
- * Date: 5/2/2018
- * Time: 4:38 PM
- */
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Model;
 
-class User
+class User extends Model
 {
+    protected $fillable = [
+        'name',
+        'last_name',
+        'birth_date',
+        'abillity',
+        'tel'
+    ];
 
+    /*protected $dates = [
+        'started_date',
+        'end_date'
+    ];
+
+    protected $dateFormat = 'm-d-Y';*/
+
+    protected $table = 'users';
 }
