@@ -10,9 +10,9 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get("/", "ProjectController@index");
 
-Route::group(["prefix" => "projects"], function () {
-    Route::get("/", "ProjectController@index");
+Route::group(["prefix" => "projects"], function () {    
     Route::get("/novo", "ProjectController@novoView");
     Route::post("/store", "ProjectController@store")->name('project.store');
     Route::post("/show", "ProjectController@show")->name('project.show');
