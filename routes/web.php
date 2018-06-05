@@ -11,8 +11,9 @@
 |
 */
 
+Route::get("/", "ProjectController@index");
+
 Route::group(["prefix" => "projects"], function () {
-    Route::get("/", "ProjectController@index");
     Route::get("/novo", "ProjectController@novoView");
     Route::post("/store", "ProjectController@store")->name('project.store');
     Route::post("/show", "ProjectController@show")->name('project.show');
