@@ -1,164 +1,106 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Cadastro &copy;</title>
-    <link rel="stylesheet" href="../css/bootstrap.css">
-    <link rel="stylesheet" href="../css/style.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="../js/bootstrap.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
-    <!--validate-->
-    <script type="text/javascript" src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.js" ></script>
-    <script type="text/javascript" src="https://ajax.aspnetcdn.com/ajax/jQuery.validate/1.9/jquery.validate.min.js" ></script>
-
-    <!--validate-->
-
-
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-</head>
-<body>
-    <div class="container mt-5">
+<div class="container col-5">
+    <form class="needs-validation" action="#paginarecolherdados" method="post" id="formulariocadastro" novalidate>
+        <br>
         <h1 class="text-center text-dark">Informações Básicas</h1>
-        <form action="#paginarecolherdados" method="post" id="formulariocadastro">
-            <div class="form-group row mt-5">
-                <div class="form-group row col">
-                    <label for="Nome" class="col-2 col-form-label">Nome: </label>
-                    <div class="col-10">
-                        <input class="form-control" name="nome" type="text" value="" id="Nome" placeholder="nome">
-                    </div>
-                </div>
-                <div class="form-group row col">
-                    <label for="sobrenome" class="col-2 col-form-label">Sobrenome: </label>
-                    <div class="col-10">
-                        <input class="form-control" name="sobrenome" type="text" value="" id="sobrenome" placeholder="sobrenome">
-                    </div>
-                </div>
+        <br>
+        <div class="form-row">
+            <div class="form-group col-6">
+                <label for="Nome">Nome</label>
+                <input class="form-control" onkeypress="return !isNumberKey(event)" name="nome" type="text" value="" id="Nome" placeholder="Nome">
             </div>
-            <div class="form-group row"><!--NESSA DIV ENTRA A PARTE DA IMAGEM / PRECISO SABER COMO FAZER-->
-                <label for="dataNascimento" class="col-2 col-form-label">Data de Nascimento: </label>
-                <div class="col-10">
-                    <input class="form-control" name="dataNascimento" type="date" value="" id="dataNascimento" >
-                </div>
+            <div class="form-group col-6">
+                <label for="sobrenome">Sobrenome</label>
+                <input class="form-control" onkeypress="return !isNumberKey(event)" name="sobrenome" type="text" value="" id="sobrenome" placeholder="Sobrenome">
             </div>
-            <div class="form-group row">
-                <label for="telefone" class="col-2 col-form-label">Telefone: </label>
-                <div class="col-10">
-                    <input class="form-control" name="telefone" type="tel" value="" id="telefone" placeholder="telefone">
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="habilidades">Habilidades: </label>
-                <textarea class="form-control" name="habilidades" id="habilidades" rows="3" placeholder="Escreva aqui um breve resumo das suas habilidades prossionais."></textarea>
+        </div>
+        <div class="form-group">
+            <label for="dataNascimento">Data de Nascimento</label>
+            <input class="form-control" name="date" type="text" id="dataNascimento" placeholder="DD/MM/YYYY" autocomplete="off">
+        </div>
+        <div class="form-group">
+            <label for="telefone">Telefone</label>
+            <input class="form-control" onkeypress="return isNumberKey(event)" name="telefone" type="tel" value="" id="telefone" placeholder="Telefone">
+        </div>
+        <div class="form-group">
+            <label for="habilidades">Habilidades</label>
+            <textarea class="form-control" name="habilidades" id="habilidades" rows="3" placeholder="Escreva aqui um breve resumo das suas habilidades prossionais."></textarea>
+        </div>
+
+        <h2 class="text-center text-dark mt-5">Dados De Logon</h2>
+        <div class="form-group">
+            <label for="email">Email*</label>
+            <input class="form-control" name="email" type="email" value="" id="email" placeholder="seuemail@dominio.com" required>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-6">
+                <label for="senha">Senha*</label>
+                <input class="form-control" name="senha" value="" type="password" id="senha" minlength="8" placeholder="Crie sua senha" required>
             </div>
 
-            <h2 class="text-center text-dark mt-5">Dados De Logon</h2>
-
-            <div class="form-group row mt-5">
-                <label for="email" class="col-1 col-form-label">Email</label>
-                <div class="col-11">
-                    <input class="form-control" name="email" type="email" value="" id="email" placeholder="seuemail@dominio.com">
-                </div>
+            <div class="form-group col-6">
+                <label for="confirmsenha">Confirmação*</label>
+                <input class="form-control" oninput="isEqual()" name="confirmsenha" value="" type="password" id="confirmsenha" minlength="8" placeholder="Confirme sua senha" required>
             </div>
+        </div>
+        <br>
+        <div class="text-center">
+            <button type="submit" class="col-3 btn btn-primary">Cadastrar</button>
+        </div>
+        <br>
+    </form>
+    <script>
+        //// Script validation form
+        (function() {
+            'use strict';
+            window.addEventListener('load', function() {
+                // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                var forms = document.getElementsByClassName('needs-validation');
+                // Loop over them and prevent submission
+                var validation = Array.prototype.filter.call(forms, function(form) {
+                    form.addEventListener('submit', function(event) {
+                        if (form.checkValidity() === false) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                        }
+                        form.classList.add('was-validated');
+                    }, false);
+                });
+            }, false);
+        })();
 
-            <div class="form-group row">
-                <div class="form-group row col">
-                    <label for="senha" class="col-2 col-form-label">Senha: </label>
-                    <div class="col-10">
-                        <input class="form-control" name="senha" value="" type="password" id="senha" placeholder="Crie uma senha">
-                    </div>
-                </div>
+        function isNumberKey(evt)
+        {
+            var charCode = (evt.which) ? evt.which : evt.keyCode;
+            if (charCode != 46 && charCode > 31
+                && (charCode < 48 || charCode > 57))
+                return false;
+            return true;
+        }
 
-                <div class="form-group row col">
-                    <label for="confirmsenha" class="col-4 col-form-label">Confirme sua senha:</label>
-                    <div class="col-8">
-                        <input class="form-control" name="confirmsenha" value="" type="password" id="confirmsenha" placeholder="Confirme sua senha">
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-5"></div>
-                <button type="submit" class="btn btn-primary col-2">Cadastrar</button>
-                <div class="col-5"></div>
-            </div>
-        </form>
-    </div>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $('#formulariocadastro').validate({
-                rules: {
-                    nome: {
-                        required: true,
-                        minlength: 5
-                    },
-                    sobrenome: {
-                        required: true,
-                        minlength: 5
-                    },
-                    dataNascimento: {
-                        required: true
-                    },
-                    telefone: {
-                        required: true
-                    },
-                    habilidades: {
-                        required: true
-                    },
-                    email: {
-                        required: true,
-                        email: true
-                    },
-                    senha: {
-                        required: true,
-                        rangelength: [6,10]
-                    },
-                    confirmsenha: {
-                        required: true,
-                        equalTo: "#senha"
+        function isEqual()
+        {
+            var password = document.getElementById("senha")
+                , confirm_password = document.getElementById("confirmsenha");
 
-                    }
-                },
-                messages: {
-                    nome: {
-                        required: "Este campo é obrigatório.*",
-                        minlength: "Nome deve conter no mínimo 5 caracteres."
-                    },
-                    sobrenome: {
-                        required: "Este campo é obrigatório.*",
-                        minlength: "Sobrenome deve conter no mínimo 5 caracteres."
-                    },
-                    dataNascimento: {
-                        required: "Este campo é obrigatório.*"
-                    },
-                    telefone: {
-                        required: "Este campo é obrigatório.*"
-                    },
-                    habilidades: {
-                        required: "Este campo é obrigatório.*"
-                    },
-                    email: {
-                        required: "Este campo é obrigatório.*",
-                        email: "Informe um email válido."
-                    },
-                    senha: {
-                        required: "Este campo é obrigatório.*",
-                        rangelength: "Sua senha deve conter de 4 a 10 dígitos."
-                    },
-                    confirmsenha: {
-                        required: "Este campo é obrigatório.*",
-                        equalTo: "Senhas nao correspondem."
-                    }
-                }
-            });
-
-        });
+            if(password.value != confirm_password.value) {
+                confirm_password.setCustomValidity("Passwords Don't Match");
+            } else {
+                confirm_password.setCustomValidity('');
+            }
+        }
     </script>
-
-
-
-
-</body>
-</html>
+</div>
+<script>
+    $(document).ready(function(){
+        var date_input=$('input[name="date"]'); //our date input has the name "date"
+        var container=$('.bootstrap form').length>0 ? $('.bootstrap form').parent() : "body";
+        var options={
+            format: 'dd/mm/yyyy',
+            container: container,
+            todayHighlight: true,
+            autoclose: true,
+        };
+        date_input.datepicker(options);
+    })
+</script>
