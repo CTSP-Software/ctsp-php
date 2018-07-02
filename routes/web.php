@@ -17,4 +17,11 @@ Route::group(["prefix" => "projects"], function () {
     Route::post("/store", "ProjectController@store")->name('project.store');
     Route::post("/show", "ProjectController@show")->name('project.show');
     Route::get("/import", "ProjectController@import_projectView");
+    Route::get("/login", "MemberController@loginView");
+    Route::get("/register", "MemberController@registerView");
+    Route::get('logout', "Auth\LoginController@logout")->name('logout');
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

@@ -52,6 +52,16 @@ class ProjectController extends Controller
         return view('projects.import')->with('resultado', $resultado);
     }
 
+    public function loginView()
+    {
+        return view('projects.login');
+    }
+
+    public function cadastroView()
+    {
+        return view('projects.register');
+    }
+
     #public function show(Request $request)
     #{
     #   $id = $request->projeto;
