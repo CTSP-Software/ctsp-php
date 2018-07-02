@@ -62,6 +62,11 @@ class ProjectController extends Controller
         return view('projects.register');
     }
 
+    public function papeis()
+    {
+        return view('projects.cadastro_papeis');
+    }
+
     #public function show(Request $request)
     #{
     #   $id = $request->projeto;

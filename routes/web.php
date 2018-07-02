@@ -20,6 +20,7 @@ Route::group(["prefix" => "projects"], function () {
     Route::get("/login", "MemberController@loginView");
     Route::get("/register", "MemberController@registerView");
     Route::get('logout', "Auth\LoginController@logout")->name('logout');
+    Route::get('/papeis', "ProjectController@papeis")->name('papeis');
 });
 
 Auth::routes();
