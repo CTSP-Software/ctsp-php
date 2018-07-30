@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Project;
+use App\User;
 use Illuminate\Http\Request;
-
+//use Illuminate\Support\Facades\Session;
+use Session;
 class MemberController extends Controller
 {
     /**
@@ -12,6 +14,12 @@ class MemberController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    //public function __construct()
+    //{
+    //    $this->middleware('status');
+    //}
+
     public function index()
     {
         //
@@ -35,7 +43,8 @@ class MemberController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $file = $request->file('file')->store('uploads', 'public');
+        var_dump($file);
     }
 
     /**
@@ -44,7 +53,7 @@ class MemberController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($name)
     {
         //
     }
@@ -67,9 +76,46 @@ class MemberController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $user = auth()->user();
+        $data = $request->all();
+
+        if($data['password'] != null)
+            $data['password'] = bcrypt($data['password']);
+        else
+            unset($data['password']);
+
+        $data['image'] = $user->image;
+        if($request->hasFile('image') && $request->file('image')->isValid()) {
+            if($user->image)
+                $name = $user->image;
+            else
+                $name = $user->id.kebab_case($user->name);
+
+            $extension = $request->image->extension();
+            $nameFile = "{$name}.{$extension}";
+
+            $data['image'] = $nameFile;
+
+            $upload = $request->image->storeAs('users', $nameFile);
+
+            if(!$upload)
+                return redirect()
+                            -> back()
+                            ->with('error', 'Falha ao fazer o upload da imagem');
+        }
+
+        $update = $user->update($data);
+
+        if($update)
+           return redirect()
+                        ->route('perfil')
+                        ->with('success', 'Sucesso ao atualizar!');
+
+        return redirect()
+                    ->back()
+                    ->with('error', 'Falha ao atualizar!');
     }
 
     /**
@@ -92,4 +138,31 @@ class MemberController extends Controller
     {
         return view('auth.register');
     }
+
+    public function show_perfil() {
+        return view('projects.meu_perfil');
+    }
+
+    public function status($id) {
+        $user = User::find($id);
+
+        $user->status = 1;
+        $user->save();
+
+        Session::flash('success', 'Succesfully Add for the team.');
+
+        return redirect()->back();
+    }
+
+    public function not_status($id) {
+        $user = User::find($id);
+
+        $user->status = 0;
+        $user->save();
+
+        Session::flash('success', 'Succesfully Add for the team.');
+
+        return redirect()->back();
+    }
+
 }

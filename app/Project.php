@@ -14,4 +14,9 @@ class Project extends Model
     ];
 
     protected $table = 'projects';
+
+    public function papel2()
+    {
+        return $this->hasMany(Papeis::class, 'project_id');
+    }
 }

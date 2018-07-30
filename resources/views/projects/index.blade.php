@@ -22,7 +22,7 @@
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
                 <!-- Form code begins -->
-                <form action="{{ route('project.store') }}" id="create_form" method="post">
+                <form action="{{ route('project.store', ['id' => auth()->user()->id]) }}" id="create_form" method="post">
                     {{ csrf_field() }}
                     <div class="modal-body">
                         <div class="form-group ">
@@ -36,9 +36,9 @@
                         <div class="form-group">
                             <label class="control-label" for="date_begin_create">Date</label>
                             <div class="form-inline"> <!-- Date input -->
-                                <input class="form-control" id="date_begin_create" name="started_date" placeholder="DD/MM/YYYY" type="text"/>
+                                <input class="form-control" id="date_begin_create" autocomplete="off" name="started_date" placeholder="DD/MM/YYYY" type="text"/>
                                 <label class="control-label m-3" for="date_end_create">to</label>
-                                <input class="form-control" id="date_end_create" name="end_date" placeholder="DD/MM/YYYY" type="text"/>
+                                <input class="form-control" id="date_end_create" autocomplete="off" name="end_date" placeholder="DD/MM/YYYY" type="text"/>
                             </div>
                         </div>
                     </div>

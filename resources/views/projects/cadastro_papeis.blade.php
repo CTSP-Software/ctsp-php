@@ -53,8 +53,8 @@
 <body>
 
 <div class="container">
-        <p class="text-center text-primary display-4">Projeto  -  Papéis Scrum</p>
-        <p class="text-center">Cadastre/edite aqui os papéis do time Scrum do <span class="text-primary">Projeto <em>X</em></span> .</p>
+        <p class="text-center text-primary display-4">Projeto <em>{{ $resultado2 }}</em> -  Papéis Scrum</p>
+        <p class="text-center">Cadastre/edite aqui os papéis do time Scrum do <span class="text-primary">Projeto <em>{{ $resultado2 }}</em></span> .</p>
 
 
         <div class="row">

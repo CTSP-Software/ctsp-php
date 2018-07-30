@@ -8,7 +8,7 @@
                 <div class="panel-heading">Register</div>
 
                 <div class="panel-body">
-                    <form class="form-horizontal" method="POST" action="{{ route('register') }}">
+                    <form class="form-horizontal" method="POST" action="{{ route('register') }}" >
                         {{ csrf_field() }}
 
                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
@@ -20,6 +20,67 @@
                                 @if ($errors->has('name'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('name') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group{{ $errors->has('last') ? ' has-error' : '' }}">
+                            <label for="last" class="col-md-4 control-label">Sobrenome</label>
+
+                            <div class="col-md-6">
+                                <input id="last" type="text" class="form-control" name="last" value="{{ old('last') }}" required autofocus>
+
+                                @if ($errors->has('last'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('last') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group{{ $errors->has('birth') ? ' has-error' : '' }}">
+                            <label for="birth" class="col-md-4 control-label">Data de Nascimento</label>
+
+                            <div class="col-md-6">
+                                <input id="birth" type="text" class="form-control" autocomplete="off" name="birth" placeholder="DD/MM/YYYY" value="{{ old('birth') }}" required autofocus>
+
+                                @if ($errors->has('birth'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('birth') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group{{ $errors->has('ability') ? ' has-error' : '' }}">
+                            <label for="ability" class="col-md-4 control-label">Habilidades</label>
+
+                            <div class="col-md-6">
+                                <textarea id="ability" rows="5" cols="20" maxlength="500" class="form-control" name="ability" value="{{ old('ability') }}" required autofocus></textarea>
+
+                                @if ($errors->has('ability'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('ability') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label" for="image">Foto</label>
+                            <input name="image" type="file"/>
+                        </div>
+
+                        <div class="form-group{{ $errors->has('tel') ? ' has-error' : '' }}">
+                            <label for="tel" class="col-md-4 control-label">Telefone</label>
+
+                            <div class="col-md-6">
+                                <input id="tel" type="text" class="form-control" name="tel" value="{{ old('tel') }}" required autofocus>
+
+                                @if ($errors->has('tel'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('tel') }}</strong>
                                     </span>
                                 @endif
                             </div>
@@ -74,4 +135,18 @@
         </div>
     </div>
 </div>
+
+<script>
+    $(document).ready(function(){
+        var date_input1=$('input[name="birth"]'); //our date input has the name "date"
+        var container=$('.bootstrap form').length>0 ? $('.bootstrap form').parent() : "body";
+        var options={
+            format: 'dd/mm/yyyy',
+            container: container,
+            todayHighlight: true,
+            autoclose: true,
+        };
+        date_input1.datepicker(options);
+    })
+</script>
 @endsection

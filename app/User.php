@@ -15,7 +15,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'last', 'birth', 'image', 'ability', 'tel', 'status',
     ];
 
     /**
@@ -26,4 +26,21 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    //protected $table = 'users';
+
+    public function papel1()
+    {
+        return $this->hasMany(Papeis::class, 'sm_id');
+    }
+
+    public function papel2()
+    {
+        return $this->hasMany(Papeis::class, 'po_id');
+    }
+
+    public function papel3()
+    {
+        return $this->hasMany(Papeis_sec::class, 'papeis_id');
+    }
 }
