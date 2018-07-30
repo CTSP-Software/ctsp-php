@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\User;
+use App\Member;
 use App\Http\Controllers\Controller;
+use App\User;
+use http\Env\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Intervention\Image\Facades\Image;
 
 class RegisterController extends Controller
 {
@@ -27,7 +30,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/projects';
 
     /**
      * Create a new controller instance.
@@ -58,14 +61,39 @@ class RegisterController extends Controller
      * Create a new user instance after a valid registration.
      *
      * @param  array  $data
-     * @return \App\User
+     * @return \App\Member
      */
-    protected function create(array $data)
+    protected function create(array $data) /**/
     {
+        /*$user = auth()->user();
+
+        $test = $data->all();
+
+        $data['image'] = $user->image;
+        if ($data->hasFile('image') && $data->file('image')->isValid()) {
+            if($user->image)
+                $name = $user->image;
+            else
+                $name = $user->id.kebab_case($user->name);
+
+            $extension = $data->image->extension();
+            $nameFile = "{$name}.{$extension}";
+
+            dd($nameFile);
+        }*/
+
+        date("d/M/Y", strtotime('birth'));
+
         return User::create([
             'name' => $data['name'],
+            'last' => $data['last'],
+            'birth' => $data['birth'],
+            'ability' => $data['ability'],
+            'tel' => $data['tel'],
+            'image' => $data['image'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
         ]);
     }
+
 }

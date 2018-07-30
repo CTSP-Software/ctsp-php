@@ -2,24 +2,45 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Model
+class User extends Authenticatable
 {
+    use Notifiable;
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
     protected $fillable = [
-        'name',
-        'last_name',
-        'birth_date',
-        'abillity',
-        'tel'
+        'name', 'email', 'password', 'last', 'birth', 'image', 'ability', 'tel', 'status',
     ];
 
-    /*protected $dates = [
-        'started_date',
-        'end_date'
+    /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = [
+        'password', 'remember_token',
     ];
 
-    protected $dateFormat = 'm-d-Y';*/
+    //protected $table = 'users';
 
-    protected $table = 'users';
+    public function papel1()
+    {
+        return $this->hasMany(Papeis::class, 'sm_id');
+    }
+
+    public function papel2()
+    {
+        return $this->hasMany(Papeis::class, 'po_id');
+    }
+
+    public function papel3()
+    {
+        return $this->hasMany(Papeis_sec::class, 'papeis_id');
+    }
 }
