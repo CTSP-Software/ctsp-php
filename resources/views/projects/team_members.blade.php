@@ -4,7 +4,7 @@
 <div class="panel panel-default">
     <p class="text-center text-primary display-4">Projeto <em>{{ $resultado2 }}</em> -  Team Members</p>
 
-    <div class="panel-heading">
+     <div class="panel-heading">
         Users
     </div>
     <div class="panel-body">
@@ -30,6 +30,11 @@
                     Status
 
                 </th>
+                <th>
+
+                    Function
+
+                </th>
             </thead>
 
             <tbody>
@@ -47,10 +52,13 @@
                             </td>
                             <td>
                                 @if($user->status)
-                                    <a href="{{ route('not_status', ['id' => $user->id]) }}" class="btn btn-xs btn-success">Remove</a>
+                                    <a href="{{ route('not_status', ['id' => $user->id, 'project' => $resultado2]) }}" class="btn btn-xs btn-danger">Remove</a>
                                 @else
                                     <a href="{{ route('status', ['id' => $user->id, 'project' => $resultado2]) }}" class="btn btn-xs btn-success">Add</a>
                                 @endif
+                            </td>
+                            <td>
+                                Desconhecido
                             </td>
                         </tr>
                      @endforeach

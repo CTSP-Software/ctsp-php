@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Product;
 use App\Project;
 use App\User;
+use App\role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -39,13 +41,22 @@ class ProjectController extends Controller
         date("d/M/Y", strtotime('end_date'));
         Project::create($request->all());
 
+        $resultado3 = DB::table('projects')->where('name', $request->name)->first();
+        $resultado4 = $resultado3->id;
+
         $user = User::find($id);
         $user->status = 1;
         $user->save();
 
+        $role = new role;
+        $role->project_id = $resultado4;
+        $role->user_id = $id;
+        $role->function = "Development team";
+        $role->save();
+
         $resultado1 = $request->name;
         #return redirect("/projects/novo") -> with('resultado1', $resultado1);
-        return view('projects.welcomepage')->with('resultado1', $resultado1);
+        return view('projects.welcomepage')->with('resultado1', $resultado1)->with('resultado4', $resultado4);
     }
 
     public function show(Request $request)
@@ -94,4 +105,17 @@ class ProjectController extends Controller
     {
         return view('projects.product_backlog')->with('resultado2', $resultado2);
     }
+
+    public function pb_store(Request $request, $id)
+    {
+        Product::create($request->all());
+        //Project::create($request->all());
+
+        $resultado5 = DB::table('projects')->where('id', $id)->first();
+        $resultado1 = $resultado5->name;
+        $resultado4 = $id;
+
+        return view('projects.welcomepage')->with('resultado1', $resultado1)->with('resultado4', $resultado4);
+    }
+
 }
