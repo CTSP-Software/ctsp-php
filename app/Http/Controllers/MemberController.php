@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Project;
+use App\role;
 use App\User;
 use Illuminate\Http\Request;
 //use Illuminate\Support\Facades\Session;
 use Session;
+use Illuminate\Support\Facades\DB;
 class MemberController extends Controller
 {
     /**
@@ -143,22 +145,40 @@ class MemberController extends Controller
         return view('projects.meu_perfil');
     }
 
-    public function status($id) {
+    public function status($id, $project) {
         $user = User::find($id);
 
         $user->status = 1;
         $user->save();
+
+        $resultado6 = DB::table('projects')->where('name', $project)->first();
+        $resultado7 = $resultado6->id;
+
+        $role = new role;
+        $role->project_id = $resultado7;
+        $role->user_id = $id;
+        $role->function = "Development team";
+        $role->save();
 
         Session::flash('success', 'Succesfully Add for the team.');
 
         return redirect()->back();
     }
 
-    public function not_status($id) {
+    public function not_status($id, $project) {
         $user = User::find($id);
 
         $user->status = 0;
         $user->save();
+
+        $resultado8 = DB::table('projects')->where('name', $project)->first();
+        $resultado9 = $resultado8->id;
+
+        $resultado10 = DB::table('roles')->where('project_id', $resultado9)->where('user_id', $id)->first();
+        $resultado11 = $resultado10->id;
+
+        $role = role::find($resultado11);
+        $role->delete();
 
         Session::flash('success', 'Succesfully Add for the team.');
 
